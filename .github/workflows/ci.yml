@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: 安装检查工具
+        run: pip install black isort flake8
+
+      - name: Black 格式检查
+        run: black --check src/credit_risk scripts/run_all.py
+
+      - name: isort 导入顺序检查
+        run: isort --check-only src/credit_risk
+
+      - name: flake8 风格检查
+        run: flake8 src/credit_risk
