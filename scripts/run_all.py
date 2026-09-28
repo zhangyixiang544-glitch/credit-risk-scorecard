@@ -17,33 +17,45 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 按阶段组织的脚本列表（相对项目根的路径）
 STAGES = [
-    ("阶段一：业务调研与数据资产", [
-        "src/credit_risk/stage1_data_assets/01_data_exploration.py",
-        "src/credit_risk/stage1_data_assets/02_data_quality_check.py",
-        "src/credit_risk/stage1_data_assets/03_field_dictionary_builder.py",
-        "src/credit_risk/stage1_data_assets/04_time_window_validation.py",
-        "src/credit_risk/stage1_data_assets/05_build_master_table.py",
-        "src/credit_risk/stage1_data_assets/06_exploratory_data_analysis.py",
-        "src/credit_risk/stage1_data_assets/07_feature_screening.py",
-        "src/credit_risk/stage1_data_assets/08_supplementary_cross_analysis.py",
-    ]),
-    ("阶段二：特征工程与基线模型", [
-        "src/credit_risk/stage2_features/01_feature_engineering.py",
-        "src/credit_risk/stage2_features/02_woe_binning.py",
-        "src/credit_risk/stage2_features/03_loan_availability_check.py",
-        "src/credit_risk/stage2_features/04_logistic_scorecard.py",
-        "src/credit_risk/stage2_features/05_lgbm_baseline.py",
-        "src/credit_risk/stage2_features/06_threshold_strategy.py",
-    ]),
-    ("阶段三：模型优化与策略", [
-        "src/credit_risk/stage3_strategy/01_model_tuning.py",
-        "src/credit_risk/stage3_strategy/02_class_imbalance.py",
-        "src/credit_risk/stage3_strategy/03_interpretability.py",
-        "src/credit_risk/stage3_strategy/04_risk_strategy.py",
-    ]),
-    ("阶段四：价值评估", [
-        "src/credit_risk/stage4_value/01_value_assessment.py",
-    ]),
+    (
+        "阶段一：业务调研与数据资产",
+        [
+            "src/credit_risk/stage1_data_assets/01_data_exploration.py",
+            "src/credit_risk/stage1_data_assets/02_data_quality_check.py",
+            "src/credit_risk/stage1_data_assets/03_field_dictionary_builder.py",
+            "src/credit_risk/stage1_data_assets/04_time_window_validation.py",
+            "src/credit_risk/stage1_data_assets/05_build_master_table.py",
+            "src/credit_risk/stage1_data_assets/06_exploratory_data_analysis.py",
+            "src/credit_risk/stage1_data_assets/07_feature_screening.py",
+            "src/credit_risk/stage1_data_assets/08_supplementary_cross_analysis.py",
+        ],
+    ),
+    (
+        "阶段二：特征工程与基线模型",
+        [
+            "src/credit_risk/stage2_features/01_feature_engineering.py",
+            "src/credit_risk/stage2_features/02_woe_binning.py",
+            "src/credit_risk/stage2_features/03_loan_availability_check.py",
+            "src/credit_risk/stage2_features/04_logistic_scorecard.py",
+            "src/credit_risk/stage2_features/05_lgbm_baseline.py",
+            "src/credit_risk/stage2_features/06_threshold_strategy.py",
+        ],
+    ),
+    (
+        "阶段三：模型优化与策略",
+        [
+            "src/credit_risk/stage3_strategy/01_model_tuning.py",
+            "src/credit_risk/stage3_strategy/02_class_imbalance.py",
+            "src/credit_risk/stage3_strategy/03_interpretability.py",
+            "src/credit_risk/stage3_strategy/04_risk_strategy.py",
+        ],
+    ),
+    (
+        "阶段四：价值评估",
+        [
+            "src/credit_risk/stage4_value/01_value_assessment.py",
+        ],
+    ),
 ]
 
 

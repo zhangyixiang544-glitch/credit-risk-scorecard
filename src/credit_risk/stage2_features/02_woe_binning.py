@@ -14,9 +14,10 @@
 - woe_encoding_map.csv：特征 + 箱 -> WOE 值映射
 """
 
+import os
+
 import numpy as np
 import pandas as pd
-import os
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

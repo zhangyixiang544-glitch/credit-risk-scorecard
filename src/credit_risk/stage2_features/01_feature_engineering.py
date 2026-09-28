@@ -11,9 +11,10 @@
 - feature_list.csv：候选特征清单（业务维度、初筛状态、入模理由）
 """
 
+import os
+
 import numpy as np
 import pandas as pd
-import os
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -141,9 +142,9 @@ def handle_outliers(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     debt_ratio = df["AMT_ANNUITY"] / df["AMT_INCOME_TOTAL"]
-    new_columns["DEBT_RATIO_TEMP"] = debt_ratio.replace(
-        [np.inf, -np.inf], np.nan
-    ).clip(upper=1.0)
+    new_columns["DEBT_RATIO_TEMP"] = debt_ratio.replace([np.inf, -np.inf], np.nan).clip(
+        upper=1.0
+    )
 
     df["CNT_CHILDREN"] = df["CNT_CHILDREN"].clip(upper=5)
     if new_columns:

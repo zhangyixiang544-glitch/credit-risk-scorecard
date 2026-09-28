@@ -4,8 +4,9 @@
 并读入字段说明文件，为后续字段字典做准备。
 """
 
-import pandas as pd
 import os
+
+import pandas as pd
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

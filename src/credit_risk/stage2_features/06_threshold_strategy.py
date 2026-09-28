@@ -9,8 +9,9 @@
 - threshold_strategy.csv：两套方案对比
 """
 
-import pandas as pd
 import os
+
+import pandas as pd
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

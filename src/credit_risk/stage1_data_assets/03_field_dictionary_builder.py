@@ -5,8 +5,9 @@
 信用历史/还款行为/交易行为），并统计各表字段数量与待分类字段。
 """
 
-import pandas as pd
 import os
+
+import pandas as pd
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -16,8 +17,7 @@ PROJECT_ROOT = os.path.dirname(
 DATA_DIR = os.path.join(PROJECT_ROOT, "data", "raw")
 # 质量巡检结果由 data_quality_check.py 生成，路径拆成两段避免单行超长
 QUALITY_FILE = (
-    os.path.join(PROJECT_ROOT, "output", "stage1")
-    + "\\data_quality_summary.csv"
+    os.path.join(PROJECT_ROOT, "output", "stage1") + "\\data_quality_summary.csv"
 )
 OUT_DIR = os.path.join(PROJECT_ROOT, "output", "stage1")
 

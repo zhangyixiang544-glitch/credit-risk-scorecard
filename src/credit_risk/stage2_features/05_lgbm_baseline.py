@@ -9,12 +9,13 @@
 - model_comparison.csv：LightGBM 与逻辑回归的性能对比
 """
 
+import os
+
 import pandas as pd
 from lightgbm import LGBMClassifier
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-import os
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

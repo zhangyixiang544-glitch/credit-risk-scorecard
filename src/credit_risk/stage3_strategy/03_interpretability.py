@@ -11,6 +11,8 @@
 - compliance_check.csv：性别、地域分群预测差异
 """
 
+import os
+
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,7 +21,6 @@ import shap
 from lightgbm import LGBMClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-import os
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -28,12 +29,8 @@ PROJECT_ROOT = os.path.dirname(
 
 OUT_DIR = os.path.join(PROJECT_ROOT, "output", "stage3")
 
-FEATURE_FILE = (
-    os.path.join(PROJECT_ROOT, "output", "stage2", "processed_features.csv")
-)
-COEF_FILE = (
-    os.path.join(PROJECT_ROOT, "output", "stage2", "logit_coefficients.csv")
-)
+FEATURE_FILE = os.path.join(PROJECT_ROOT, "output", "stage2", "processed_features.csv")
+COEF_FILE = os.path.join(PROJECT_ROOT, "output", "stage2", "logit_coefficients.csv")
 
 RANDOM_STATE = 42
 TEST_SIZE = 0.3

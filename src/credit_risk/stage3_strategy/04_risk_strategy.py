@@ -10,8 +10,9 @@
 - strategy_simulation.csv：纯规则基线 vs 两套模型策略对比
 """
 
-import pandas as pd
 import os
+
+import pandas as pd
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

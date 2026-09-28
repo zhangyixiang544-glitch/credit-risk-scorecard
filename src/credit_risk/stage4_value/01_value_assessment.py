@@ -13,8 +13,9 @@
 - value_assessment.csv：各方案价值测算表
 """
 
-import pandas as pd
 import os
+
+import pandas as pd
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -23,9 +24,7 @@ PROJECT_ROOT = os.path.dirname(
 
 OUT_DIR = os.path.join(PROJECT_ROOT, "output", "stage4")
 
-SIM_FILE = (
-    os.path.join(PROJECT_ROOT, "output", "stage3", "strategy_simulation.csv")
-)
+SIM_FILE = os.path.join(PROJECT_ROOT, "output", "stage3", "strategy_simulation.csv")
 
 # 业务假设参数
 APPLICATIONS = 100_000  # 测算基准申请量（笔）

@@ -12,8 +12,9 @@
 - loan_availability_check.csv：特征合规清单（数据来源、结论、备注）
 """
 
-import pandas as pd
 import os
+
+import pandas as pd
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

@@ -14,12 +14,13 @@
 - model_versions.csv：3 个版本训练/测试 AUC、KS 与过拟合差距
 """
 
+import os
+
 import pandas as pd
 from lightgbm import LGBMClassifier
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.preprocessing import LabelEncoder
-import os
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -28,12 +29,8 @@ PROJECT_ROOT = os.path.dirname(
 
 OUT_DIR = os.path.join(PROJECT_ROOT, "output", "stage3")
 
-FEATURE_FILE = (
-    os.path.join(PROJECT_ROOT, "output", "stage2", "processed_features.csv")
-)
-COEF_FILE = (
-    os.path.join(PROJECT_ROOT, "output", "stage2", "logit_coefficients.csv")
-)
+FEATURE_FILE = os.path.join(PROJECT_ROOT, "output", "stage2", "processed_features.csv")
+COEF_FILE = os.path.join(PROJECT_ROOT, "output", "stage2", "logit_coefficients.csv")
 
 # 与阶段二一致的划分参数
 RANDOM_STATE = 42

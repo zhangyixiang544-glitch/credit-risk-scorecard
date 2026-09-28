@@ -5,9 +5,10 @@
 输出每字段的正值占比、极值、缺失占比与结论，供阶段二聚合时过滤/截断。
 """
 
+import os
+
 import numpy as np
 import pandas as pd
-import os
 
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
