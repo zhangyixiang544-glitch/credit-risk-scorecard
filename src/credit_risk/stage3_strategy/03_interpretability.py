@@ -157,7 +157,7 @@ def main() -> None:
 
     mean_abs_shap = pd.Series(
         np.abs(shap_values).mean(axis=0), index=model_cols, name="SHAP均值"
-    ).sort_values(ascending=False)
+    )
     importance_df = pd.DataFrame(
         {
             "特征名": model_cols,
