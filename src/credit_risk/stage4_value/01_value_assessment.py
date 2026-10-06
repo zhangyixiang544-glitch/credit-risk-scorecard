@@ -44,7 +44,9 @@ def load_simulation() -> pd.DataFrame:
     return df
 
 
-def assess(value: float, pass_rate: float, bad_rate: float, manual_rate: float) -> dict:
+def assess(
+    value: float, pass_rate: float, bad_rate: float, manual_rate: float, base_bad_rate: float
+) -> dict:
     """测算单个方案的价值。
 
     Args:
@@ -52,6 +54,7 @@ def assess(value: float, pass_rate: float, bad_rate: float, manual_rate: float) 
         pass_rate: 通过率
         bad_rate: 坏账率
         manual_rate: 人工审核占比
+        base_bad_rate: 对比基线的坏账率（行业参考基线）
 
     Returns:
         价值测算记录
@@ -60,8 +63,8 @@ def assess(value: float, pass_rate: float, bad_rate: float, manual_rate: float) 
     bad_count = int(passed * bad_rate)
     manual_count = int(APPLICATIONS * manual_rate)
 
-    # 风险收益：与纯规则基线（全部通过）相比减少的坏账损失
-    base_bad = int(APPLICATIONS * 0.0807)  # 基线坏账率取整体违约率
+    # 风险收益：与传统规则引擎基线（行业参考）相比减少的坏账损失
+    base_bad = int(APPLICATIONS * base_bad_rate)
     reduced_bad = base_bad - bad_count
     loss_saved = reduced_bad * AVG_LOAN_AMOUNT * BAD_LOSS_RATE / 10_000  # 万元
 
@@ -95,16 +98,26 @@ def main() -> None:
     )
 
     sim = load_simulation()
-    base_row = sim[sim["策略"] == "纯规则基线（全部通过）"]
+    # 对比基线取"行业参考基线"（传统规则引擎典型水平），坏账节省相对该水平计算
+    base_row = sim[sim["策略"] == "传统规则引擎基线（行业参考）"]
     if base_row.empty:
-        print("未找到纯规则基线行，使用默认整体坏账率 8.07%")
+        print("未找到行业参考基线行，使用默认行业坏账率 4.0%")
+        base_bad_rate = 0.04
+    else:
+        base_bad_rate = float(base_row.iloc[0]["坏账率"])
 
     records = []
     for _, row in sim.iterrows():
-        if row["策略"] == "纯规则基线（全部通过）":
+        if "基线" in row["策略"]:
             continue
         records.append(
-            assess(row["策略"], row["通过率"], row["坏账率"], row["人工审核占比"])
+            assess(
+                row["策略"],
+                row["通过率"],
+                row["坏账率"],
+                row["人工审核占比"],
+                base_bad_rate,
+            )
         )
     result_df = pd.DataFrame(records)
     result_df.to_csv(

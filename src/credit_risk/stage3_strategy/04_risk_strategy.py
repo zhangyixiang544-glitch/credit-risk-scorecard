@@ -26,6 +26,10 @@ SCORE_FILE = os.path.join(PROJECT_ROOT, "output", "stage2", "scores_test.csv")
 # 人工审核拦截率假设：中风险档经人工审核后拦截的违约比例，
 REVIEW_BLOCK_RATE = 0.5
 
+# 行业参考基线：传统规则引擎典型风控水平（模拟值，报告标注"行业参考"）
+INDUSTRY_PASS_RATE = 0.85
+INDUSTRY_BAD_RATE = 0.04
+
 
 # 分数从低到高 = 风险从高到低，拒绝线取低分位，通过线取高分位
 STRATEGY_EDGES = {
@@ -115,6 +119,8 @@ def simulate_strategy(df: pd.DataFrame, block_rate: float) -> dict:
         "自动拒绝占比": round(len(auto_reject) / len(df), 4),
         "最终通过率": round(len(final_pass) / len(df), 4),
         "最终坏账率": round(final_bad / len(final_pass), 4),
+        "人工拦截假设": f"中风险违约客户拦截 {block_rate:.0%}（放行其余）",
+        "坏账率口径": "放款客群坏账率（通过并放款客户中违约占比）",
     }
 
 
@@ -146,6 +152,8 @@ def main() -> None:
                 "自动拒绝占比": sim["自动拒绝占比"],
                 "最终通过率": sim["最终通过率"],
                 "最终坏账率": sim["最终坏账率"],
+                "人工拦截假设": sim["人工拦截假设"],
+                "坏账率口径": sim["坏账率口径"],
             }
         )
         print(
@@ -160,7 +168,7 @@ def main() -> None:
     )
     print(f"两套方案已保存: {OUT_DIR}\\risk_strategy.csv")
 
-    # 2. 纯规则基线对比模型策略模拟
+    # 2. 基线对比模型策略模拟（基线分两档：极端参考 + 行业参考）
     simulation_records = [
         {
             "策略": "纯规则基线（全部通过）",
@@ -168,7 +176,18 @@ def main() -> None:
             "坏账率": round(total_bad, 4),
             "人工审核占比": 0.0,
             "自动审批率": 1.0,
-        }
+            "基线说明": "极端情形参考：无任何风控，非行业真实水平",
+            "坏账率口径": "放款客群坏账率（通过并放款客户中违约占比）",
+        },
+        {
+            "策略": "传统规则引擎基线（行业参考）",
+            "通过率": INDUSTRY_PASS_RATE,
+            "坏账率": INDUSTRY_BAD_RATE,
+            "人工审核占比": 0.0,
+            "自动审批率": INDUSTRY_PASS_RATE,
+            "基线说明": "行业参考基线（主对比基准）：传统规则引擎典型风控水平，模拟值",
+            "坏账率口径": "放款客群坏账率（通过并放款客户中违约占比）",
+        },
     ]
     for rec in strategy_records:
         simulation_records.append(
@@ -178,6 +197,8 @@ def main() -> None:
                 "坏账率": rec["最终坏账率"],
                 "人工审核占比": rec["人工审核占比"],
                 "自动审批率": rec["自动审批率"],
+                "基线说明": "模型驱动三档分层策略",
+                "坏账率口径": rec["坏账率口径"],
             }
         )
     simulation_df = pd.DataFrame(simulation_records)
